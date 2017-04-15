@@ -4,8 +4,8 @@ machine:
 
 dependencies:
   pre:
-    - sudo pip install --upgrade pip
-    - sudo pip install pandas
+    - sudo pip3 install --upgrade pip3
+    - sudo pip3 install pandas
 
 test:
   override:
