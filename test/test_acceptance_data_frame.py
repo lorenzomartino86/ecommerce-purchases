@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import Mock
 from src.adapter.file_purchases_repository import FilePurchasesRepository
-from src.domain.ecommerce_purchases import EcommercePurchases
+from src.domain.ecommerce_purchases import EcommerceDataFrame
 
 class DataFrameTest(unittest.TestCase):
 
     def setUp(self):
         self.repository = FilePurchasesRepository("./EcommercePurchases.csv")
-        self.purchases = EcommercePurchases()
+        self.purchases = EcommerceDataFrame()
 
     def test_data_frame_generation(self):
         self.purchases.create_data_frame(self.repository)
