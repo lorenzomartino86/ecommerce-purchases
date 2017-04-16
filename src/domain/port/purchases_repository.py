@@ -3,4 +3,4 @@ from abc import abstractmethod
 class PurchasesRepository:
 
     @abstractmethod
-    def getPurchases(self): raise NotImplementedError
+    def get_purchases(self): raise NotImplementedError
