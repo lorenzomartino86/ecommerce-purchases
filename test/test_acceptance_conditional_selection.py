@@ -26,3 +26,12 @@ class ConditionalSelectionTest(unittest.TestCase):
         df = df[(df['Purchase Price'] > 60) & (df['Job'] == 'Psychiatric nurse')]
         length = len(df.index)
         self.assertEqual(7, length)
+
+    def test_price_greater_than_sixty_or_with_psychiatric_nurses(self):
+        df = self.ecommerce.get_data_frame()
+        df = df[(df['Purchase Price'] > 60) | (df['Job'] == 'Psychiatric nurse')]
+        length = len(df.index)
+        self.assertEqual(4061, length)
+
+if __name__ == '__main__':
+    unittest.main()

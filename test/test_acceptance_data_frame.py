@@ -6,34 +6,31 @@ from src.domain.ecommerce_purchases import EcommerceDataFrame
 class DataFrameTest(unittest.TestCase):
 
     def setUp(self):
-        self.repository = FilePurchasesRepository("./EcommercePurchases.csv")
-        self.purchases = EcommerceDataFrame()
+        repository = FilePurchasesRepository("./EcommercePurchases.csv")
+        self.ecommerce = EcommerceDataFrame()
+        self.ecommerce.create_data_frame(repository)
 
     def test_data_frame_generation(self):
-        self.purchases.create_data_frame(self.repository)
-        data_frame = self.purchases.get_data_frame()
-        dimensions = data_frame.shape
-        total_rows = len(data_frame.index)
+        df = self.ecommerce.get_data_frame()
+        dimensions = df.shape
+        total_rows = len(df.index)
         self.assertEqual(10000, total_rows)
         self.assertEqual((10000, 14), dimensions)
 
     def test_get_first_five_rows(self):
-        self.purchases.create_data_frame(self.repository)
-        data_frame = self.purchases.get_data_frame(5)
-        self.assertEqual(5, len(data_frame.index))
+        df = self.ecommerce.get_data_frame(5)
+        self.assertEqual(5, len(df.index))
 
     def test_get_first_row(self):
-        self.purchases.create_data_frame(self.repository)
-
         # DataFrame is a collection of Series
-        data_frame = self.purchases.get_data_frame(1)
-        self.assertEqual(1, len(data_frame.index))
+        df = self.ecommerce.get_data_frame(1)
+        self.assertEqual(1, len(df.index))
 
         # get value of Series 'AM or PM' at index 0, and so on..
-        am_or_pm = data_frame.loc[0, 'AM or PM']
-        credit_card = data_frame.loc[0, 'Credit Card']
-        company = data_frame.loc[0, 'Company']
-        price = data_frame.loc[0, 'Purchase Price']
+        am_or_pm = df.loc[0, 'AM or PM']
+        credit_card = df.loc[0, 'Credit Card']
+        company = df.loc[0, 'Company']
+        price = df.loc[0, 'Purchase Price']
 
         self.assertEqual("PM", am_or_pm)
         self.assertEqual(6011929061123406, credit_card)
@@ -41,23 +38,20 @@ class DataFrameTest(unittest.TestCase):
         self.assertEqual(98.14, price)
 
     def test_removing_first_five_rows(self):
-        self.purchases.create_data_frame(self.repository)
-        data_frame = self.purchases.get_data_frame(-5)
-        self.assertEqual(9995, len(data_frame.index))
+        df = self.ecommerce.get_data_frame(-5)
+        self.assertEqual(9995, len(df.index))
 
     def test_get_last_row(self):
-        self.purchases.create_data_frame(self.repository)
-
-        total_rows = len(self.purchases.get_data_frame().index)
+        total_rows = len(self.ecommerce.get_data_frame().index)
         index = total_rows - 1
-        data_frame = self.purchases.get_data_frame(-(index))
-        self.assertEqual(1, len(data_frame.index))
+        df = self.ecommerce.get_data_frame(-(index))
+        self.assertEqual(1, len(df.index))
 
         # get value of Series 'AM or PM' at index, and so on..
-        am_or_pm = data_frame.loc[index, 'AM or PM']
-        credit_card = data_frame.loc[index, 'Credit Card']
-        company = data_frame.loc[index, 'Company']
-        price = data_frame.loc[index, 'Purchase Price']
+        am_or_pm = df.loc[index, 'AM or PM']
+        credit_card = df.loc[index, 'Credit Card']
+        company = df.loc[index, 'Company']
+        price = df.loc[index, 'Purchase Price']
 
         self.assertEqual("AM", am_or_pm)
         self.assertEqual(4139972901927273, credit_card)
