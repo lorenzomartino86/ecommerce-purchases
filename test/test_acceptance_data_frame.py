@@ -21,10 +21,15 @@ class DataFrameTest(unittest.TestCase):
         total_rows = len(data_frame.index)
         self.assertEqual(10000, total_rows)
 
-    def test_first_five_rows(self):
+    def test_get_first_five_rows(self):
         self.purchases.create_data_frame(self.repository)
-        data_frame = self.purchases.get_first_rows_data_frame(5)
+        data_frame = self.purchases.get_data_frame(5)
         self.assertEqual(5, len(data_frame.index))
+
+    def test_removing_first_five_rows(self):
+        self.purchases.create_data_frame(self.repository)
+        data_frame = self.purchases.get_data_frame(-5)
+        self.assertEqual(9995, len(data_frame.index))
 
 if __name__ == '__main__':
     unittest.main()
