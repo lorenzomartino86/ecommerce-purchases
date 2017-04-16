@@ -1,18 +1,13 @@
 import unittest
 from unittest.mock import Mock
-from pathlib import Path
 from src.adapter.file_purchases_repository import FilePurchasesRepository
 from src.domain.ecommerce_purchases import EcommercePurchases
 
 class DataFrameTest(unittest.TestCase):
 
     def setUp(self):
-        self.purchases_csv = "./EcommercePurchases.csv"
-        self.repository = FilePurchasesRepository(self.purchases_csv)
+        self.repository = FilePurchasesRepository("./EcommercePurchases.csv")
         self.purchases = EcommercePurchases()
-
-    def test_existence_of_file(self):
-        self.assertEqual(True, Path(self.purchases_csv).is_file())
 
     def test_data_frame_generation(self):
         self.purchases.create_data_frame(self.repository)
@@ -68,6 +63,10 @@ class DataFrameTest(unittest.TestCase):
         self.assertEqual(4139972901927273, credit_card)
         self.assertEqual("Greene Inc", company)
         self.assertEqual(67.59, price)
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

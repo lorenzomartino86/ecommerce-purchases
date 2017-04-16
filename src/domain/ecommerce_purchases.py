@@ -14,3 +14,6 @@ class EcommercePurchases(object):
             return self.data_frame.head(rows)
         if rows < 0:
             return self.data_frame.tail(rows)
+
+    def get_by_price_greater_than(self, price):
+        return self.data_frame[self.data_frame['Purchase Price'] > price]
