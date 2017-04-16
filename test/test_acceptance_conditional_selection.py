@@ -1,18 +1,28 @@
 import unittest
-
 from src.adapter.file_purchases_repository import FilePurchasesRepository
 from src.domain.ecommerce_purchases import EcommerceDataFrame
-
 
 class ConditionalSelectionTest(unittest.TestCase):
 
     def setUp(self):
-        self.repository = FilePurchasesRepository("./EcommercePurchases.csv")
-        self.ecommerce_data_frame = EcommerceDataFrame()
+        repository = FilePurchasesRepository("./EcommercePurchases.csv")
+        self.ecommerce = EcommerceDataFrame()
+        self.ecommerce.create_data_frame(repository)
 
-
-    def test_price_greater_than_one_ninentynine(self):
-        self.ecommerce_data_frame.create_data_frame(self.repository)
-        data_frame = self.ecommerce_data_frame.get_by_price_greater_than(99)
-        length = len(data_frame.index)
+    def test_price_greater_than_ninentynine(self):
+        df = self.ecommerce.get_data_frame()
+        df = df[df['Purchase Price'] > 99]
+        length = len(df.index)
         self.assertEqual(98, length)
+
+    def test_price_greater_than_ninentynine_and_language_fr(self):
+        df = self.ecommerce.get_data_frame()
+        df = df[(df['Purchase Price'] > 99) & (df['Language'] == 'fr')]
+        length = len(df.index)
+        self.assertEqual(15, length)
+
+    def test_price_greater_than_sixty_for_psychiatric_nurses(self):
+        df = self.ecommerce.get_data_frame()
+        df = df[(df['Purchase Price'] > 60) & (df['Job'] == 'Psychiatric nurse')]
+        length = len(df.index)
+        self.assertEqual(7, length)

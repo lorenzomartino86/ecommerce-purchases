@@ -18,6 +18,7 @@ class EcommerceDataFrame(object):
     def get_length(self):
         return len(self.data_frame.index)
 
-    def get_by_price_greater_than(self, price):
+    def filter(self, price):
         return self.data_frame[
-            self.data_frame['Purchase Price'] > price]
+            self.data_frame["Purchase Price"] > price
+        ]
