@@ -23,3 +23,11 @@ class MissingDataTest(unittest.TestCase):
         self.assertEqual('FILL VALUE', last_row['B'])
         self.assertEqual(3, last_row['C'])
 
+    def test_fill_missing_values_with_mean(self):
+        data_frame = self.data_frame['A'].fillna(value=self.data_frame['A'].mean())
+        total_rows = len(data_frame.index)
+        self.assertEqual(3, total_rows)
+        self.assertEqual(1, data_frame.loc[0])
+        self.assertEqual(2, data_frame.loc[1])
+        self.assertEqual(1.5, data_frame.loc[2])
+
