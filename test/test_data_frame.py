@@ -59,8 +59,5 @@ class DataFrameTest(unittest.TestCase):
         self.assertEqual(67.59, price)
 
 
-
-
-
 if __name__ == '__main__':
     unittest.main()
