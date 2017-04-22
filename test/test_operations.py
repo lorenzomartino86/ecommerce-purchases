@@ -32,5 +32,24 @@ class OperationsTest(unittest.TestCase):
         self.assertEqual(372, data_frame[3])
         self.assertEqual(1050, data_frame[5])
 
+
+    def test_pivot_table(self):
+        data = {'A':['foo','foo','foo','bar','bar','bar'],
+                'B':['one','one','two','two','one','one'],
+                'C':['x','y','x','y','x','y'],
+                'D':[1,3,2,5,4,1]}
+
+        data_frame = pd.DataFrame(data)
+        print(data_frame)
+
+        pivot_table = data_frame.pivot_table(values='D', index=['A','B'], columns='C')
+        print(pivot_table)
+
+
+
+
+
+
+
     def __times2(self, x):
         return x*2
