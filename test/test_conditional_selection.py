@@ -1,3 +1,4 @@
+import os
 import unittest
 from src.adapter.file_purchases_repository import FilePurchasesRepository
 from src.domain.ecommerce_purchases import EcommerceDataFrame
@@ -5,7 +6,8 @@ from src.domain.ecommerce_purchases import EcommerceDataFrame
 class ConditionalSelectionTest(unittest.TestCase):
 
     def setUp(self):
-        repository = FilePurchasesRepository("./EcommercePurchases.csv")
+        file_location = os.path.join(os.path.dirname(__file__), 'EcommercePurchases.csv')
+        repository = FilePurchasesRepository(file_location)
         self.ecommerce = EcommerceDataFrame()
         self.ecommerce.create_data_frame(repository)
 

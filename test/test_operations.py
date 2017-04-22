@@ -45,11 +45,5 @@ class OperationsTest(unittest.TestCase):
         pivot_table = data_frame.pivot_table(values='D', index=['A','B'], columns='C')
         print(pivot_table)
 
-
-
-
-
-
-
     def __times2(self, x):
         return x*2
