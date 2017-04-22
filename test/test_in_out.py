@@ -28,4 +28,6 @@ class InputOutTest(unittest.TestCase):
 
     def test_get_html(self):
         data_frame = pd.read_html(self.url)
-        print (data_frame)
+        first_rows = data_frame[0].head()
+        self.assertIsNotNone(first_rows)
+
