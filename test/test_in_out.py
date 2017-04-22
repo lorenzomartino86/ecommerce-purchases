@@ -7,6 +7,7 @@ class InputOutTest(unittest.TestCase):
     def setUp(self):
         self.file_location = os.path.join(os.path.dirname(__file__), 'EcommercePurchases.csv')
         self.loaded_csv = os.path.join(os.path.dirname(__file__), 'test_load')
+        self.url = 'https://www.fdic.gov/bank/individual/failed/banklist.html'
 
     def test_read_csv(self):
         data_frame = pd.read_csv(self.file_location)
@@ -24,3 +25,7 @@ class InputOutTest(unittest.TestCase):
         self.assertEqual(10000, total_rows)
         self.assertEqual((10000, 14), dimensions)
         os.remove(self.loaded_csv)
+
+    def test_get_html(self):
+        data_frame = pd.read_html(self.url)
+        print (data_frame)
